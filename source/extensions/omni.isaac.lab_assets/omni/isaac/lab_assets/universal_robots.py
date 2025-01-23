@@ -52,3 +52,46 @@ UR10_CFG = ArticulationCfg(
     },
 )
 """Configuration of UR-10 arm using implicit actuator models."""
+
+UR3E_CFG = ArticulationCfg(
+    spawn=sim_utils.UsdFileCfg(
+        usd_path="/home/jwpark/rl/IsaacLab/source/extensions/omni.isaac.lab_assets/data/Robots/Universal_Robots/ur3e_2f85_.usd",  # UR3e USD 파일 경로
+        rigid_props=sim_utils.RigidBodyPropertiesCfg(
+            disable_gravity=False,
+            max_depenetration_velocity=5.0,
+        ),
+        activate_contact_sensors=False,
+        # <-- 추가 부분: 베이스를 고정하도록 설정
+        articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+            enabled_self_collisions=False,
+            fix_root_link=True,     # 로봇 베이스 링크 고정
+        )
+    ),
+    init_state=ArticulationCfg.InitialStateCfg(
+        joint_pos={
+            "shoulder_pan_joint": 0.0,
+            "shoulder_lift_joint": -1.57,
+            "elbow_joint": 1.57,
+            "wrist_1_joint": 0.0,
+            "wrist_2_joint": 0.0,
+            "wrist_3_joint": 0.0,
+            "finger_joint": 0.8,  # Gripper open position
+        },
+    ),
+    actuators={
+        "arm": ImplicitActuatorCfg(
+            joint_names_expr=[".*"],  # 모든 조인트에 대해 설정
+            velocity_limit=50.0,      # UR3e의 속도 제한 설정
+            effort_limit=30.0,        # UR3e의 힘 제한 설정
+            stiffness=500.0,          # UR3e의 관절 강성 설정
+            damping=25.0,             # UR3e의 감쇠 설정
+        ),
+        "gripper": ImplicitActuatorCfg(
+            joint_names_expr=["finger_joint"],  # Gripper-specific joint
+            effort_limit=200.0,
+            velocity_limit=0.2,
+            stiffness=2e3,
+            damping=1e2,
+        ),
+    },
+)
