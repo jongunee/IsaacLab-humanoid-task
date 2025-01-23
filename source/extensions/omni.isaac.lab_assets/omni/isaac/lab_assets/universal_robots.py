@@ -55,7 +55,7 @@ UR10_CFG = ArticulationCfg(
 
 UR3E_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path="/home/jwpark/rl/IsaacLab/source/extensions/omni.isaac.lab_assets/data/Robots/Universal_Robots/ur3e_2f85_.usd",  # UR3e USD 파일 경로
+        usd_path="./source/extensions/omni.isaac.lab_assets/data/Robots/Universal_Robots/ur3e_2f85.usd",  # UR3e USD 파일 경로
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
             max_depenetration_velocity=5.0,

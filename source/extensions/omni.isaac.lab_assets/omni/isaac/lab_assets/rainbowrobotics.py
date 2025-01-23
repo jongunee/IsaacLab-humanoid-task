@@ -4,7 +4,7 @@ from omni.isaac.lab.actuators import ImplicitActuatorCfg
 
 RBY1_CFG = ArticulationCfg(
     spawn=UsdFileCfg(
-        usd_path="/home/jwpark/rl/IsaacLab/source/extensions/omni.isaac.lab_assets/data/Robots/rainbowrobotics/rby1.usd",
+        usd_path="./source/extensions/omni.isaac.lab_assets/data/Robots/rainbowrobotics/rby1.usd",
         activate_contact_sensors=True,
         rigid_props=RigidBodyPropertiesCfg(
             disable_gravity=False,
